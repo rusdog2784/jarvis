@@ -12,12 +12,12 @@ def create_app():
 
     with app.app_context():
         # Create and register the blueprints with the app:
-        api_blueprint = get_api_blueprint(app)
+        api_blueprint = create_api_blueprint(app)
         app.register_blueprint(api_blueprint, url_prefix="/api")
         return app
 
 
-def get_api_blueprint(app: Flask) -> Blueprint:
+def create_api_blueprint(app: Flask) -> Blueprint:
     """
     Responsible for setting up the API Blueprint and all API Resources under it 
     for the application.
