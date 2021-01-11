@@ -10,8 +10,6 @@ def create_app():
     app = Flask(__name__, instance_relative_config=False)
     app.config.from_object(os.getenv("APP_SETTINGS", "config.DevelopmentConfig"))
 
-    app.logger.error(f"{os.system('cat google-credentials.json')}")
-
     with app.app_context():
         # Create and register the blueprints with the app:
         api_blueprint = create_api_blueprint(app)
