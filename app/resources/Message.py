@@ -13,12 +13,18 @@ class Message(Resource):
     """
 
     def post(self):
-        json_data = request.get_json(force=True)
-        if not json_data or "text" not in json_data:
-            return {"message": "No input data provided or invalid input (must provide 'text')."}, 400
-        text = json_data.get("text", None)
-        analysis = get_wit_analysis(text)
-        return jsonify({
-            "message": f"{text}",
-            "data": analysis
-        })
+        try:
+            json_data = request.get_json(force=True)
+            if not json_data or "text" not in json_data:
+                return {"message": "No input data provided or invalid input (must provide 'text')."}, 400
+            text = json_data.get("text", None)
+            analysis = get_wit_analysis(text)
+            return jsonify({
+                "message": f"{text}",
+                "data": analysis
+            })
+        except Exception as unknown_exception:
+            return jsonify({
+                "message": "Unknown Error Occurred",
+                "error": f"{unknown_exception}"
+            })
